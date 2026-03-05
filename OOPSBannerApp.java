@@ -1,73 +1,71 @@
 public class OOPSBannerApp {
 
-    // Function to generate line for letter O
-    public static String getO(int line) {
-        switch (line) {
-            case 0:
-            case 6:
-                return " ***** ";
-            case 1:
-            case 2:
-            case 3:
-            case 4:
-            case 5:
-                return "*     *";
-            default:
-                return "";
-        }
-    }
+    // Static inner class to store character and its pattern
+    static class CharacterPatternMap {
 
-    // Function to generate line for letter P
-    public static String getP(int line) {
-        switch (line) {
-            case 0:
-                return " ***** ";
-            case 1:
-            case 2:
-                return "*     *";
-            case 3:
-                return " ***** ";
-            case 4:
-            case 5:
-            case 6:
-                return "*      ";
-            default:
-                return "";
-        }
-    }
+        private char character;
+        private String[] pattern;
 
-    // Function to generate line for letter S
-    public static String getS(int line) {
-        switch (line) {
-            case 0:
-            case 6:
-                return " ***** ";
-            case 1:
-            case 2:
-                return "*      ";
-            case 3:
-                return " ***** ";
-            case 4:
-            case 5:
-                return "      *";
-            default:
-                return "";
+        public CharacterPatternMap(char character, String[] pattern) {
+            this.character = character;
+            this.pattern = pattern;
+        }
+
+        public char getCharacter() {
+            return character;
+        }
+
+        public String[] getPattern() {
+            return pattern;
         }
     }
 
     public static void main(String[] args) {
 
-        String[] banner = new String[7];
+        // Pattern for O
+        CharacterPatternMap O = new CharacterPatternMap('O', new String[]{
+                " ***** ",
+                "*     *",
+                "*     *",
+                "*     *",
+                "*     *",
+                "*     *",
+                " ***** "
+        });
 
+        // Pattern for P
+        CharacterPatternMap P = new CharacterPatternMap('P', new String[]{
+                " ***** ",
+                "*     *",
+                "*     *",
+                " ***** ",
+                "*      ",
+                "*      ",
+                "*      "
+        });
+
+        // Pattern for S
+        CharacterPatternMap S = new CharacterPatternMap('S', new String[]{
+                " ***** ",
+                "*      ",
+                "*      ",
+                " ***** ",
+                "      *",
+                "      *",
+                " ***** "
+        });
+
+        // Store characters for word OOPS
+        CharacterPatternMap[] word = {O, O, P, S};
+
+        // Print banner
         for (int i = 0; i < 7; i++) {
-            banner[i] = String.join("    ",
-                    getO(i),
-                    getO(i),
-                    getP(i),
-                    getS(i));
-        }
+            StringBuilder line = new StringBuilder();
 
-        for (String line : banner) {
+            for (CharacterPatternMap c : word) {
+                line.append(c.getPattern()[i]).append("    ");
+            }
+
             System.out.println(line);
         }
     }
